@@ -1,10 +1,33 @@
 from django import forms
 from django.contrib.auth.models import User
-from . import models
+from django.contrib.auth.forms import UserCreationForm
+from hospital.models import *
 from doctor.models import *
 from patient.models import *
 
+#--------------new--------------------
+class LoginForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+    def clean(self):
+        if self.is_valid():
+            username = self.cleaned_data['username']
+            password = self.cleaned_data['password']
+            if not authenticate(username=username, password=password):
+                raise forms.ValidationError("Invalid Login")
+
+
+class CreateUserForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
+
+#---------------------------------------------------
 
 #for admin signup
 class AdminSigupForm(forms.ModelForm):
@@ -51,15 +74,15 @@ class PatientForm(forms.ModelForm):
         fields=['address','mobile','status','symptoms','profile_pic']
 
 class AppointmentForm(forms.ModelForm):
-    doctorId=forms.ModelChoiceField(queryset=models.Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
-    patientId=forms.ModelChoiceField(queryset=models.Patient.objects.all().filter(status=True),empty_label="Patient Name and Symptoms", to_field_name="user_id")
+    #doctorId=forms.ModelChoiceField(queryset=models.Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
+    #patientId=forms.ModelChoiceField(queryset=models.Patient.objects.all().filter(status=True),empty_label="Patient Name and Symptoms", to_field_name="user_id")
     class Meta:
         model=Appointment
         fields=['description','status']
 
 
 class PatientAppointmentForm(forms.ModelForm):
-    doctorId=forms.ModelChoiceField(queryset=models.Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
+    #doctorId=forms.ModelChoiceField(queryset=models.Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
     class Meta:
         model=Appointment
         fields=['description','status']

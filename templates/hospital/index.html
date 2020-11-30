@@ -1,10 +1,5 @@
 {% extends 'hospital/homebase.html' %}
 {% load static %}
-<!--
-written By : sumit kumar
-facebook : fb.com/sumit.luv
--->
-
 
 {% block content %}
 
@@ -14,7 +9,7 @@ facebook : fb.com/sumit.luv
     .jumbotron {
       margin-top: 0px;
       margin-bottom: 0px;
-      background-image: url('{% static "images/bg.jpg" %}');
+      background-image: url('{% static "images/homebackground.jpg" %}');
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -69,12 +64,6 @@ facebook : fb.com/sumit.luv
 
 <br><br><br><br>
 
-{% include "hospital/admin_doctor_patient_card.html" %}
-<br><br><br>
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+
 
 {% endblock content %}
