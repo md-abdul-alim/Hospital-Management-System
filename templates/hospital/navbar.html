@@ -25,10 +25,10 @@ Clinic Management System
               Registration
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Doctor</a>
-              <a class="dropdown-item" href="#">Patient</a>
+              <a class="dropdown-item" href="{% url 'doctor_registration' %}">Doctor</a>
+              <a class="dropdown-item" href="{% url 'patient_registration' %}">Patient</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Clinic</a>
+              <a class="dropdown-item" href="{% url 'hopital_registration' %}">Hospital</a>
             </div>
           </li>
           <li class="nav-item">

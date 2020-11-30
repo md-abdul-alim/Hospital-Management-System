@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'hospital',
     'doctor',
     'patient',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
