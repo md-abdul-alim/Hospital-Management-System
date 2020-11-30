@@ -9,6 +9,7 @@ from datetime import datetime,timedelta,date
 from django.conf import settings
 
 #login START
+
 def loginPage(request):
     user = request.user
     if user.is_authenticated:  # if : if the user is logged in already and trying to access login again
@@ -29,9 +30,9 @@ def loginPage(request):
             else:
                 # this error will occur if user is not valid
                 messages.info(request, 'Username or password is incorrect')
-                return render(request, 'homepage/login.html', context)
+                return render(request, 'hospital/login.html', context)
         else:
-            return render(request, 'homepage/login.html', context)
+            return render(request, 'hospital/login.html', context)
 
 
 def homepage(request):

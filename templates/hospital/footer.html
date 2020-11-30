@@ -1,85 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <title>Footer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style media="screen">
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body{
+        background: #fcfcfc;
+      }
+      footer{
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #111;
+        height: auto;
+        width: 100vw;
+        font-family: "Open Sans";
+        padding-top: 40px;
+        color: #fff;
+      }
+      .footer-content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .footer-content h3{
+        font-size: 1.8rem;
+        font-weight: 400;
+        text-transform: capitalize;
+        line-height: 3rem;
+      }
+      .footer-content p{
+        max-width: 500px;
+        margin: 10px auto;
+        line-height: 28px;
+        font-size: 14px;
+      }
+      .socials{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0 3rem 0;
+      }
+      .socials li{
+        margin: 0 10px;
+      }
+      .socials a{
+        text-decoration: none;
+        color: #fff;
+      }
+      .socials a i{
+        font-size: 1.1rem;
+        transition: color .4s ease;
+      }
+      .socials a: hover i{
+        color: aqua;
+      }
+      .footer-bottom{
+        background: #000;
+        width: 100vw;
+        padding: 20px 0;
+        text-align: center;
+      }
+      .footer-bottom p{
+        font-size: 14px;
+        word-spacing: 2px;
+        text-transform: capitalize;
+      }
+      .footer-bottom spam{
+        text-transform: uppercase;
+        opacity: .4;
+        font-weight: 200px;
+      }
 
-<head>
-
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-  <style>
-    /*---------------------------------------
-   Social section
------------------------------------------*/
-    footer {
-      padding: 0px 0px 0px 0px;
-      background-color: black;
-      margin: 0px;
-    }
-
-    .fa {
-      padding: 20px;
-      font-size: 23px;
-      width: 60px;
-      text-align: center;
-      text-decoration: none;
-      margin: 5px 2px;
-      border-radius: 50%;
-    }
-
-    .fa:hover {
-      opacity: 0.5;
-      text-decoration: none;
-    }
-
-    .fa-facebook {
-      background: #3B5998;
-      color: white;
-      margin-top: 5px;
-    }
-
-    .fa-whatsapp {
-      background: #25d366;
-      color: white;
-    }
-
-    .fa-twitter {
-      background: #55ACEE;
-      color: white;
-    }
-
-    .fa-instagram {
-      background: #125688;
-      color: white;
-    }
-
-    p {
-      text-align: center;
-
-    }
-  </style>
-</head>
-
-<footer>
-
-  <p>
-    <a href="https://facebook.com/sumit.luv/" class="fa fa-facebook"></a>
-    <a href="https://api.whatsapp.com/send?phone=919572181024&text=Hello%20Sumit.%0d%0aHow%20are%20you%20%3f%0d%0aI%20came%20from%20your%20website.&source=&data=#" class="fa fa-whatsapp"></a>
-    <a href="https://instagram.com/sumit.luv" class="fa fa-instagram"></a>
-    <a href="https://twitter.com/sumitkumar1503" class="fa fa-twitter"></a>
-  </p>
-
-  <br>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-sm-12">
-        <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
-          <p>Made in India <br>
-            Copyright &copy; 2020 LazyCoder </p>
-        </div>
+    </style>
+  </head>
+  <body>
+    <footer>
+      <div class="footer-content">
+        <h3>Hospital Management System</h3>
+        <p>Find me here</p>
+        <ul class="socials">
+          <li> <a href="https://www.facebook.com/abdulalim.milon.71/" class="nav-link border border-light rounded waves-effect" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+          <li> <a href="https://twitter.com/abdulalim_milon" class="nav-link border border-light rounded waves-effect" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+          <li> <a href="https://github.com/md-abdul-alim" class="nav-link border border-light rounded waves-effect"
+              target="_blank"><i class="fa fa-github"></i></a> </li>
+          <li> <a href="https://www.linkedin.com/in/md-abdul-alim-milon/" class="nav-link border border-light rounded waves-effect" target="_blank"><i class="fa fa-linkedin"></i></a> </li>
+        </ul>
       </div>
-    </div>
-  </div>
-</footer>
-
+      <div class="footer-bottom">
+        <p>copyright &copy; 2020. Designed by <span>AbdulAlim</span></p>
+      </div>
+    </footer>
+  </body>
 </html>
