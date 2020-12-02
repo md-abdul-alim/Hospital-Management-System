@@ -1,0 +1,64 @@
+{% extends 'hospital/homebase.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{%block content%}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container register-form">
+      <div class="form">
+        <div class="col-md-12" style="color:Blue">
+          <h4 class="text-center">Hospital Registrationl</h4>
+        </div>
+
+        <div class="form-content">
+          <!-- start -->
+          <div class="row" >
+              <div class="col-md-6">
+                  {{userForm.first_name | as_crispy_field}}
+              </div>
+              <div class="col-md-6">
+                  {{userForm.last_name | as_crispy_field}}
+              </div>
+          </div>
+        {{userForm.username | as_crispy_field}}
+          <div class="row" style="color: red">
+              <div class="col-md-6">
+                  {{userForm.password1 | as_crispy_field}}
+              </div>
+              <div class="col-md-6">
+                  {{userForm.password2 | as_crispy_field}}
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-6">
+                  {{doctorForm.address | as_crispy_field}}
+              </div>
+              <div class="col-md-6">
+                  {{doctorForm.mobile | as_crispy_field }}
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-12">
+                  {{doctorForm.department | as_crispy_field}}
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-3">
+                  {{doctorForm.profile_pic | as_crispy_field}}
+              </div>
+          </div>
+          <!-- end -->
+          <div class="row">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
+            </div>
+          </div>
+          <div class="text-center">Already have an account? <a href="{% url 'login' %}">Login here</a></div>
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+{%endblock content%}
