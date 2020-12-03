@@ -4,6 +4,18 @@
 {%block content%}
 
   <form method="POST" enctype="multipart/form-data">
+    <div class="mt-5 pt-4">
+     {% if messages %}
+         {% for message in messages %}
+         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+           {{ message }}
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         {% endfor %}
+     {% endif %}
+     </div>
     {% csrf_token %}
     <div class="container register-form">
       <div class="form">
@@ -14,6 +26,11 @@
         <div class="form-content">
           <!-- start -->
           <div class="row" >
+              <div class="col-md-12">
+                {{userForm.username | as_crispy_field}}
+              </div>
+          </div>
+          <div class="row" >
               <div class="col-md-6">
                   {{userForm.first_name | as_crispy_field}}
               </div>
@@ -21,7 +38,7 @@
                   {{userForm.last_name | as_crispy_field}}
               </div>
           </div>
-        {{userForm.username | as_crispy_field}}
+
           <div class="row" style="color: red">
               <div class="col-md-6">
                   {{userForm.password1 | as_crispy_field}}
@@ -45,6 +62,7 @@
           </div>
           <div class="row" >
               <div class="col-md-3">
+                <!-- for file upload: https://docs.djangoproject.com/en/3.1/ref/forms/api/#binding-uploaded-files -->
                   {{doctorForm.profile_pic | as_crispy_field}}
               </div>
           </div>

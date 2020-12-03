@@ -6,6 +6,8 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib import messages
 from .forms import *
 from .models import *
 from hospital.validators import redirectlogin
@@ -62,6 +64,7 @@ def doctor_registration(request):
             'userForm':userForm,
             'doctorForm':doctorForm
         }
+
         print("GET")
         if request.method=='POST':
             userForm=CreateUserForm(request.POST)
@@ -69,25 +72,39 @@ def doctor_registration(request):
             print("before POST")
             # userForm.save()
             # print("user saved before post")
-
-            if userForm.is_valid() and doctorForm.is_valid():
-                print("POST")
-                userForm=userForm.save()
-                # user.set_password(user.password)
-                # user.save()
-                print("user saved")
-                group = Group.objects.get(name='DOCTOR')
-                userForm.groups.add(group)
-                print("Group added")
-                doctorForm=doctorForm.save(commit=False)    #documentation: https://stackoverflow.com/questions/12848605/django-modelform-what-is-savecommit-false-used-for
-                print("doctor saved")
-                doctorForm.user=userForm
-                print("doctor user saved")
-                doctorForm=doctorForm.save()
-                print("All saved")
-                # my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
-                # my_doctor_group[0].user_set.add(user)
-                return redirect('login')
+            username = request.POST["username"]
+            password1 = request.POST["password1"]
+            password2 = request.POST["password2"]
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'This username already exists.try another one')
+                return render(request,'hospital/registration/doctorsignup.html',context)
             else:
-                return HttpResponse("Error")
+                if password1 != password2 :
+                    messages.warning(request, 'Password does not match.') #for messages: https://micropyramid.com/blog/basics-of-django-message-framework/
+                    return render(request,'hospital/registration/doctorsignup.html',context)
+                else:
+                    print("Username", username)
+                    if userForm.is_valid() and doctorForm.is_valid():
+                        print("POST")
+                        # username = userForm.cleaned_data['username']
+                        # print("username", username)
+                        userForm=userForm.save()
+                        # user.set_password(user.password)
+                        # user.save()
+                        print("user saved")
+                        group = Group.objects.get(name='DOCTOR')
+                        userForm.groups.add(group)
+                        print("Group added")
+                        doctorForm=doctorForm.save(commit=False)    #documentation: https://stackoverflow.com/questions/12848605/django-modelform-what-is-savecommit-false-used-for
+                        print("doctor saved")
+                        doctorForm.user=userForm
+                        print("doctor user saved")
+                        doctorForm=doctorForm.save()
+                        print("All saved")
+                        # my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
+                        # my_doctor_group[0].user_set.add(user)
+                        return redirect('login')
+                    else:
+                        return HttpResponse("Error")
+
         return render(request,'hospital/registration/doctorsignup.html',context)
