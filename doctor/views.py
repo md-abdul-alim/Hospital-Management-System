@@ -13,46 +13,7 @@ from .models import *
 from hospital.validators import redirectlogin
 
 # Create your views here.
-#---------------------Doctor registration------------------------------
-# def doctor_registration(request):
-#     user = request.user
-#     if user.is_authenticated:
-#         return redirectlogin(request)
-#     else:
-#         userForm=forms.CreateUserForm()
-#         doctorForm=forms.DoctorForm()
-#         context={
-#             'userForm':userForm,
-#             'doctorForm':doctorForm
-#         }
-#         print("GET")
-#         if request.method=='POST':
-#
-#             userForm=forms.CreateUserForm(request.POST)
-#             doctorForm=forms.DoctorForm(request.POST,request.FILES)
-#             print("before POST")
-#
-#             if userForm.is_valid() and doctorForm.is_valid():
-#                 print("POST")
-#                 userForm=userForm.save()
-#                 # user.set_password(user.password)
-#                 # user.save()
-#                 print("user saved")
-#                 group = Group.objects.get_or_create(name='DOCTOR')
-#                 userForm.groups.add(group)
-#                 print("Group added")
-#                 doctorForm=doctorForm.save(commit=False)    #documentation: https://stackoverflow.com/questions/12848605/django-modelform-what-is-savecommit-false-used-for
-#                 print("doctor saved")
-#                 doctorForm.user=userForm
-#                 print("doctor user saved")
-#                 doctorForm=doctorForm.save()
-#                 print("All saved")
-#                 # my_doctor_group = Group.objects.get_or_create(name='DOCTOR')
-#                 # my_doctor_group[0].user_set.add(user)
-#                 return redirect('login')
-#             else:
-#                 return HttpResponse("Error")
-#         return render(request,'hospital/registration/doctorsignup.html',context)
+
 def doctor_registration(request):
     user = request.user
     if user.is_authenticated:

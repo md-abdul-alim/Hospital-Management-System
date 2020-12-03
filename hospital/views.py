@@ -95,36 +95,6 @@ def hopital_registration(request):
         return render(request,'hospital/registration/hospitalsignup.html',{'form':form})
 
 
-
-#---------------------Patient registration------------------------------
-def patient_registration(request):
-    if request.user.is_authenticated:
-        return redirectlogin(request)
-    else:
-        userForm=forms.PatientUserForm()
-        patientForm=forms.PatientForm()
-        mydict={'userForm':userForm,'patientForm':patientForm}
-        if request.method=='POST':
-            userForm=forms.PatientUserForm(request.POST)
-            patientForm=forms.PatientForm(request.POST,request.FILES)
-            if userForm.is_valid() and patientForm.is_valid():
-                user=userForm.save()
-                user.set_password(user.password)
-                user.save()
-                patient=patientForm.save(commit=False)
-                patient.user=user
-                patient.assignedDoctorId=request.POST.get('assignedDoctorId')
-                patient=patient.save()
-                my_patient_group = Group.objects.get_or_create(name='PATIENT')
-                my_patient_group[0].user_set.add(user)
-            return HttpResponseRedirect('patientlogin')
-        return render(request,'hospital/registration/patientsignup.html',context=mydict)
-
-
-
-
-
-
 #-----------for checking user is doctor , patient or admin(by sumit)
 def is_admin(user):
     return user.groups.filter(name='ADMIN').exists()
