@@ -2,73 +2,70 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {%block content%}
-  <!--- signup page for patient by admin(sumit)  ---------->
-  <form action="" method="POST" enctype="multipart/form-data">
+
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mt-5 pt-4">
+     </div>
     {% csrf_token %}
     <div class="container register-form">
       <div class="form">
         <div class="col-md-12" style="color:Blue">
-          <h4 class="text-center">Hospital Registrationl</h4>
+          <h4 class="text-center">Patient Registrationl</h4>
         </div>
 
         <div class="form-content">
           <!-- start -->
           <div class="row" >
               <div class="col-md-12">
-                <input type="text" name="username" id="inputUsername" placeholder="Username" required>
-                <p>{{form.username.errors}}</p>
+                {{userForm.username | as_crispy_field}}
+                
               </div>
           </div>
           <div class="row" >
               <div class="col-md-6">
-                  <input type="text" name="first_name" value="" placeholder="First Name" required>
+                  {{userForm.first_name | as_crispy_field}}
               </div>
               <div class="col-md-6">
-                  <input type="text" name="last_name" value="" placeholder="Last Name" required>
+                  {{userForm.last_name | as_crispy_field}}
               </div>
           </div>
-          <!-- <input type="" name="" value="" placeholder="" required> -->
+
           <div class="row" style="color: red">
               <div class="col-md-6">
-                  <input type="password" name="password1" value="" placeholder="Password" required>
+                  {{userForm.password1 | as_crispy_field}}
               </div>
               <div class="col-md-6">
-                  <input type="password" name="password2" value="" placeholder="Confirm Password" required>
+                  {{userForm.password2 | as_crispy_field}}
               </div>
-              <p>{{form.password1.errors}}</p>
           </div>
           <div class="row" >
               <div class="col-md-6">
-
+                  {{patientForm.address | as_crispy_field}}
               </div>
               <div class="col-md-6">
-
+                  {{patientForm.mobile | as_crispy_field }}
               </div>
           </div>
           <div class="row" >
               <div class="col-md-12">
-
+                  {{patientForm.symptoms | as_crispy_field}}
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-4">
+                  {{patientForm.status | as_crispy_field}}
+              </div>
+              <div class="col-md-8">
+                  {{patientForm.assignedDoctorId | as_crispy_field}}
               </div>
           </div>
           <div class="row" >
               <div class="col-md-3">
                 <!-- for file upload: https://docs.djangoproject.com/en/3.1/ref/forms/api/#binding-uploaded-files -->
-
+                  {{patientForm.profile_pic | as_crispy_field}}
               </div>
           </div>
           <!-- end -->
-          {% for field in registration_form %}
-           <p>
-               {% for error in field.errors %}
-                   <p style="color: red">{{ error }}</p>
-               {% endfor %}
-           </p>
-           {% endfor %}
-           {% if registration_form.non_field_errors %}
-               <div style="color: red">
-                   <p>{{ registration_form.non_field_errors }}</p>
-               </div>
-           {% endif %}
           <div class="row">
             <div class="col-md-4">
                 <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
@@ -79,6 +76,6 @@
         </div>
       </div>
     </div>
-  </form>
 
+  </form>
 {%endblock content%}

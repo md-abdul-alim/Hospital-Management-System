@@ -56,18 +56,26 @@ def patient_registration(request):
     if user.is_authenticated:
         return redirectlogin(request)
     else:
-        form=CreateUserForm()
-        context={'form':form}
+        userForm=CreateUserForm()
+        patientForm=PatientForm()
+        context={
+            'userForm':userForm,
+            'patientForm':patientForm
+        }
         if request.method=='POST':
             print("post")
-            form=CreateUserForm(request.POST or None)
-            if form.is_valid():
+            userForm=CreateUserForm(request.POST or None)
+            patientForm=PatientForm(request.POST or None)
+            if userForm.is_valid() and patientForm.is_valid():
                 #userForm.save()
                 print("valid")
                 return redirect('login')
             else:
                 print("Post not valid")
-                context={'form':form}
+                context={
+                    'userForm':userForm,
+                    'patientForm':patientForm
+                }
                 return render(request,'hospital/registration/patientsignup.html',context)
         else:
-            return render(request,'hospital/registration/patientsignup.html')
+            return render(request,'hospital/registration/patientsignup.html',context)
