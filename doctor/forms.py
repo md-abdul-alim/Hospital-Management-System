@@ -15,62 +15,6 @@ from doctor.models import *
 #check email form txt/json file:https://www.youtube.com/watch?v=fUbIjy1b_s8
 #https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
 
-class CreateUserForm(UserCreationForm):
-    # error_css_class = 'error'
-    # required_css_class = 'required'
-    username=forms.CharField(error_messages={'required':'Enter an username'},widget=forms.TextInput(attrs={'placeholder':'Username'}))
-    first_name=forms.CharField(error_messages={'required':'Enter your First Name'},widget=forms.TextInput(attrs={'placeholder':'First Name'}))
-    last_name=forms.CharField(error_messages={'required':'Enter your last Name'},widget=forms.TextInput(attrs={'placeholder':'Last Name'}))
-    password1=forms.CharField(label='Password',min_length=5, max_length=10,error_messages={'required':'Enter password'},widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
-    password2=forms.CharField(label='Password confirmation',min_length=5, max_length=10,error_messages={'required':'Enter confirmation password'},widget=forms.PasswordInput(attrs={'placeholder':'Password confirmation'}))
-
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
-        exclude = ['email']
-        ##this will not work if we use forms.CharField() Already
-        # labels = {
-        #     'username': _('Username'),
-        #     'first_name': 'First Name',
-        #     'last_name': 'Last Name',
-        #     'password1': 'Password',
-        #     'password2': 'Password confirmation'
-        # }
-        # help_texts = {
-        #     'username': _('User Name is not unique.'),
-        # }
-        # error_messages = {
-        #     'username': {
-        #         'max_length': _("This writer's name is too long."),
-        #     },
-        # }
-    ##Post django form cleaning.This part will not overwrite required
-    # u = "milon"
-    # if User.objects.filter(username=u).exists():
-    #     print("name", u)
-    def clean_username(self,*args, **kwargs):
-        username = self.cleaned_data.get("username")
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError("User Already Exists.Try another one.")
-        else:
-            return username
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #
-    #     p1 = cleaned_data.get('password1')
-    #     p2 = cleaned_data.get('password2')
-    #     if p1 !=p2:
-    #         raise forms.ValidationError("Password does not match.")
-    #     return cleaned_data
-    # def clean_username(self,*args, **kwargs):
-    #     email = self.cleaned_data.get("email")
-    #     if not email.endswith("edu"):
-    #         raise forms.ValidationError("This email is not valid.")
-    #     return email
-
-
-
 
 class DoctorForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/
     address=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Rajpara, Rajshahi'}))
@@ -79,7 +23,7 @@ class DoctorForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics/
     #example: price = forms.DecimalField(initial=199.99)
     class Meta:
         model=Doctor
-        fields=['address','mobile','department','status','profile_pic']
+        fields=['address','mobile','department','profile_pic']
         exclude = ['user','status']
         #this labels will not work. if we use forms.CharField().Like we didn't use profile_pic.that's why here profile_pic label will noly work
         labels = {
@@ -88,7 +32,14 @@ class DoctorForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics/
             'department': 'Department',
             'profile_pic': 'Upload profile picture'
         }
-
+    def clean_mobile(self,*args, **kwargs):
+        mobile = self.cleaned_data.get("mobile")
+        if Doctor.objects.filter(mobile=mobile).exists():
+            print("Phone number", mobile)
+            #raise forms.ValidationError("User Already Exists.Try another one.")
+            raise forms.ValidationError('This "%s" is already in use.' %mobile)
+        else:
+            return mobile
 
     # def __init__(self, *args, **kwargs):
     #     super(EmployeeForm, self).__init__(*args, **kwargs)

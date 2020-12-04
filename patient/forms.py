@@ -31,13 +31,42 @@ class CreateUserForm(UserCreationForm):
         else:
             return username
 
+    ##here both password1 & password2 clean data is working well.we just comment it because it cannot validate miss match password
+
     def clean_password1(self,*args, **kwargs):
         password1 = self.cleaned_data.get("password1")
+        if len(password1)<8:
+            raise forms.ValidationError('This password is too short. It must contain at least 8 characters.')
+        return password1
+
+    def clean_password2(self): #https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
+        password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
+        print("pass1", password1)
+        if len(password2)<8:
+            raise forms.ValidationError('This password is too short. It must contain at least 8 characters.')
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError(
+                self.error_messages['password_mismatch'],
+                code='password_mismatch',
+            )
+        return password2
+
+    def clean_first_name(self,*args, **kwargs):
+        first_name = self.cleaned_data.get("first_name")
         #return pass1
-        if password1 != password2 :
-            print("password check")
-            raise forms.ValidationError('Password does not match.')
+        if first_name == "" :
+            print("First Name check")
+            raise forms.ValidationError('First name can not be empty.')
+        return first_name
+
+    def clean_last_name(self,*args, **kwargs):
+        last_name = self.cleaned_data.get("last_name")
+        #return pass1
+        if last_name == "" :
+            print("Last Name check")
+            raise forms.ValidationError('Last name can not be empty.')
+        return last_name
 
     # def clean_username(self):
     #     if self.is_valid():
@@ -57,8 +86,29 @@ class CreateUserForm(UserCreationForm):
 class PatientForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics/forms/modelforms/
     address=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Rajpara, Rajshahi'}))
     mobile=forms.CharField(required=False,widget=forms.TextInput(attrs={'placeholder':'Phone number'}))
+    symptoms=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Symptoms'}))
+
     assignedDoctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Name and Department", to_field_name="user_id")
     class Meta:
         model=Patient
         fields=['address','mobile','status','symptoms','profile_pic']
         exclude = ['user']
+        labels = {
+            'mobile': _('Phone Number'),#this will not work because previously we used customized upper
+            #'status': 'Status',
+            'profile_pic': 'Upload profile picture'
+        }
+    def clean_mobile(self,*args, **kwargs):
+        mobile = self.cleaned_data.get("mobile")
+        if Patient.objects.filter(mobile=mobile).exists():
+            print("Phone number", mobile)
+            #raise forms.ValidationError("User Already Exists.Try another one.")
+            raise forms.ValidationError('This "%s" is already in use.' %mobile)
+        else:
+            return mobile
+
+    def clean_symptoms(self,*args, **kwargs):
+        symptoms = self.cleaned_data.get("symptoms")
+        if len(symptoms)<5:
+            raise forms.ValidationError('Please provide some symptoms.')
+        return symptoms

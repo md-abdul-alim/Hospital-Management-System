@@ -14,43 +14,7 @@ from hospital.validators import redirectlogin
 # Create your views here.
 
 #---------------------Patient registration------------------------------
-# def patient_registration(request):
-#     user = request.user
-#     if user.is_authenticated:
-#         return redirectlogin(request)
-#     else:
-#         userForm=CreateUserForm()
-#         patientForm=PatientForm()
-#         context={
-#             'userForm':userForm,
-#             'patientForm':patientForm
-#         }
-#         if request.method=='POST':
-#             userForm=CreateUserForm(request.POST)
-#             patientForm=PatientForm(request.POST,request.FILES)
-#             username = request.POST["username"]
-#             password1 = request.POST["password1"]
-#             password2 = request.POST["password2"]
-#             if User.objects.filter(username=username).exists():
-#                 messages.error(request, 'This username already exists.try another one')
-#                 return render(request,'hospital/registration/patientsignup.html',context)
-#             else:
-#                 if password1 != password2 :
-#                     messages.warning(request, 'Password does not match.') #for messages: https://micropyramid.com/blog/basics-of-django-message-framework/
-#                     return render(request,'hospital/registration/patientsignup.html',context)
-#                 else:
-#                     if userForm.is_valid() and patientForm.is_valid():
-#                         userForm=userForm.save()
-#                         group = Group.objects.get(name='PATIENT')
-#                         userForm.groups.add(group)
-#                         userForm.save()
-#                         patientForm=patientForm.save(commit=False)
-#                         patientForm.user=userForm
-#                         patientForm.save()
-#                         return redirect('login')
-#                     else:
-#                         return HttpResponse("Error")
-#         return render(request,'hospital/registration/patientsignup.html',context)
+
 def patient_registration(request):
     user = request.user
     if user.is_authenticated:
@@ -65,9 +29,17 @@ def patient_registration(request):
         if request.method=='POST':
             print("post")
             userForm=CreateUserForm(request.POST or None)
-            patientForm=PatientForm(request.POST or None)
+            patientForm=PatientForm(request.POST,request.FILES or None)
             if userForm.is_valid() and patientForm.is_valid():
-                #userForm.save()
+                userForm=userForm.save()
+                #userForm.set_password(user.password)
+                group = Group.objects.get(name='PATIENT')
+                userForm.groups.add(group)
+
+                patientForm=patientForm.save(commit=False)
+                patientForm.user=userForm
+                patientForm.assignedDoctorId=request.POST.get('assignedDoctorId')
+                patientForm.save()
                 print("valid")
                 return redirect('login')
             else:
