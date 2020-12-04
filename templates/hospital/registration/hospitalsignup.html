@@ -1,106 +1,56 @@
-<!DOCTYPE html>
+{% extends 'hospital/homebase.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{%block content%}
 
-{% load widget_tweaks %}
-<html lang="en" dir="ltr">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>LazyCoder || sumit</title>
-  <style type="text/css">
-    body {
-      color: #aa082e;
-      background-color: #b6bde7;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    a:link {
-      text-decoration: none;
-    }
-
-    .note {
-      text-align: center;
-      height: 80px;
-      background: -webkit-linear-gradient(left, #0072ff, #8811c5);
-      color: #fff;
-      font-weight: bold;
-      line-height: 80px;
-    }
-
-    .form-content {
-      padding: 5%;
-      border: 1px solid #ced4da;
-      margin-bottom: 2%;
-    }
-
-    .form-control {
-      border-radius: 1.5rem;
-    }
-
-    .btnSubmit {
-      border: none;
-      border-radius: 1.5rem;
-      padding: 1%;
-      width: 20%;
-      cursor: pointer;
-      background: #0062cc;
-      color: #fff;
-    }
-  </style>
-
-</head>
-
-
-<body>
-  {% include "hospital/navbar.html" %}
-  <br>
-  <br>
-  <br>
-  <br>
-
-
-
-
-  <!--- signup page for admin by admin(sumit)  ---------->
-  <form method="post">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mt-5 pt-4">
+     </div>
     {% csrf_token %}
     <div class="container register-form">
       <div class="form">
         <div class="note">
           <p>Add New Admin To Hospital</p>
         </div>
+        <!-- <div class="col-md-12" style="color:Blue">
+          <h4 class="text-center">Patient Registrationl</h4>
+        </div> -->
 
         <div class="form-content">
+          <!-- start -->
+          <div class="row" >
+              <div class="col-md-12">
+                {{adminForm.username | as_crispy_field}}
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-6">
+                  {{adminForm.first_name | as_crispy_field}}
+              </div>
+              <div class="col-md-6">
+                  {{adminForm.last_name | as_crispy_field}}
+              </div>
+          </div>
+
+          <div class="row" style="color: red">
+              <div class="col-md-6">
+                  {{adminForm.password1 | as_crispy_field}}
+              </div>
+              <div class="col-md-6">
+                  {{adminForm.password2 | as_crispy_field}}
+              </div>
+          </div>
+          <!-- end -->
           <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                {% render_field form.first_name class="form-control" placeholder="First Name" %}
-              </div>
-              <div class="form-group">
-                {% render_field form.username class="form-control" placeholder="Username" %}
-              </div>
-
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                {% render_field form.last_name class="form-control" placeholder="Last Name" %}
-              </div>
-              <div class="form-group">
-                {% render_field form.password class="form-control" placeholder="Password" %}
-              </div>
-
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-sign-in-alt"></i> Sign Up</button>
             </div>
           </div>
-          <button type="submit" class="btnSubmit">Submit</button>
-          <div class="text-center">Already have an account? <a href="adminlogin">Login here</a></div>
+          <div class="text-center">Already have an account? <a href="{% url 'login' %}">Login here</a></div>
+
         </div>
       </div>
     </div>
 
   </form>
-
-
-  {% include "hospital/footer.html" %}
-</body>
-
-</html>
+{%endblock content%}

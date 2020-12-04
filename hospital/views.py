@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
 from hospital.validators import redirectlogin
+from patient.forms import CreateUserForm
 
 #login START
 
@@ -82,17 +83,15 @@ def hopital_registration(request):
     if request.user.is_authenticated:
         return redirectlogin(request)
     else:
-        form=forms.AdminSigupForm()
+        adminForm=CreateUserForm()
         if request.method=='POST':
-            form=forms.AdminSigupForm(request.POST)
-            if form.is_valid():
-                user=form.save()
-                user.set_password(user.password)
-                user.save()
-                my_admin_group = Group.objects.get_or_create(name='ADMIN')
-                my_admin_group[0].user_set.add(user)
-                return HttpResponseRedirect('adminlogin')
-        return render(request,'hospital/registration/hospitalsignup.html',{'form':form})
+            adminForm=CreateUserForm(request.POST)
+            if adminForm.is_valid():
+                adminForm=adminForm.save()
+                group = Group.objects.get(name='ADMIN')
+                adminForm.groups.add(group)
+                return redirect('login')
+        return render(request,'hospital/registration/hospitalsignup.html',{'adminForm':adminForm})
 
 
 #-----------for checking user is doctor , patient or admin(by sumit)
