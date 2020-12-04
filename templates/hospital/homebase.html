@@ -8,14 +8,61 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
   <style type="text/css">
-  .note {
+  /* .note {
     text-align: center;
     height: 80px;
     background: -webkit-linear-gradient(left, #0072ff, #8811c5);
-    color: #fff;
+    color: yellow;
     font-weight: bold;
     line-height: 80px;
+  } */
+  .note {
+    display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	height: 80px;
+  	flex-direction: column;
+  	background: #050801;
+  }
+  .note p{
+    position: relative;
+    display: inline-block;
+    color: #03e9f4;
+    font-size: 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.1s;
+    letter-spacing: 4px;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+  }
+  .note p:nth-child(1)
+  {
+  	filter:hue-rotate(290deg); /* default */
+  }
+  .note p:nth-child(2)
+  {
+  	filter:hue-rotate(200deg);
+  }
+  .note p:nth-child(3)
+  {
+  	filter:hue-rotate(110deg); /* default */
+  }
+  .note p:nth-child(4)
+  {
+  	filter:hue-rotate(170deg);
+  }
+
+  .note p:hover
+  {
+  	background: #03e9f4;
+  	color: #050801;
+  	box-shadow: 0 0 5px #03e9f4,
+  				0 0 25px #03e9f4,
+  				0 0 50px #03e9f4,
+  				0 0 200px #03e9f4;
   }
   </style>
 </head>

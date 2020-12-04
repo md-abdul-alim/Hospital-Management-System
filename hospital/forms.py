@@ -21,11 +21,7 @@ class LoginForm(forms.ModelForm):
                 raise forms.ValidationError("Invalid Login")
 
 
-class CreateUserForm(UserCreationForm):
 
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
 
 #---------------------------------------------------
 

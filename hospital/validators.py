@@ -6,10 +6,10 @@ def redirectlogin(request):
     # if user.is_authenticated:  # if : if the user is logged in already and trying to access login again
     if user.groups.filter(name='ADMIN').exists():
         login(request, user)
-        return redirect('adminpanel-dashboard')
+        return redirect('admin-dashboard')
     elif user.groups.filter(name='DOCTOR').exists():
         login(request, user)
-        return redirect('adminmanagement-dashboard')
+        return redirect('doctor-dashboard')
     elif user.groups.filter(name='PATIENT').exists():
         login(request, user)
-        return redirect('clinicpanel-dashboard')
+        return redirect('patient-dashboard')
