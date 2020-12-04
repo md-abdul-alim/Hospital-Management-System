@@ -12,6 +12,7 @@ from .forms import *
 from doctor.models import *
 from patient.models import *
 from hospital.models import *
+from hospital.forms import PatientAppointmentForm
 from hospital.validators import redirectlogin
 # Create your views here.
 
@@ -86,16 +87,16 @@ def patient_appointment_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_patient)
 def patient_book_appointment_view(request):
-    appointmentForm=forms.PatientAppointmentForm()
+    appointmentForm=PatientAppointmentForm()
     patient=Patient.objects.get(user_id=request.user.id) #for profile picture of patient in sidebar
     mydict={'appointmentForm':appointmentForm,'patient':patient}
     if request.method=='POST':
-        appointmentForm=forms.PatientAppointmentForm(request.POST)
+        appointmentForm=PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
             appointment=appointmentForm.save(commit=False)
             appointment.doctorId=request.POST.get('doctorId')
             appointment.patientId=request.user.id #----user can choose any patient but only their info will be stored
-            appointment.doctorName=models.User.objects.get(id=request.POST.get('doctorId')).first_name
+            appointment.doctorName=User.objects.get(id=request.POST.get('doctorId')).first_name
             appointment.patientName=request.user.first_name #----user can choose any patient but only their info will be stored
             appointment.status=False
             appointment.save()

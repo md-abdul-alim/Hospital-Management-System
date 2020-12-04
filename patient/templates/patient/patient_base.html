@@ -100,9 +100,9 @@
       <h2>{{request.user.first_name}}</h2>
     </header>
     <ul>
-      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/patient-dashboard"><span>Dashboard</span></a> </li>
-      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/patient-appointment"><span>Appointments</span></a></li>
-      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/patient-discharge"><span>Discharge</span></a></li>
+      <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="{% url 'patient-dashboard' %}"><span>Dashboard</span></a> </li>
+      <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="{% url 'patient-appointment' %}"><span>Appointments</span></a></li>
+      <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="{% url 'patient-discharge' %}"><span>Discharge</span></a></li>
     </ul>
   </nav>
   <main>
@@ -140,8 +140,7 @@
         <div class="row">
           <div class="col-md-12 col-sm-12">
             <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
-              <p>Made in India <br>
-                Copyright &copy; 2020 LazyCoder </p>
+              <p>Copyright &copy; 2020 AbdulAlimMilon </p>
             </div>
           </div>
         </div>

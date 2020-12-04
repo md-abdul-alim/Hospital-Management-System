@@ -1,5 +1,6 @@
 {% extends 'patient/patient_base.html' %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <head>
@@ -64,12 +65,8 @@
             <div class="form-group">
               {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
             </div>
-
-
-
-
+            
           </div>
-
         </div>
         <button type="submit" class="btnSubmit">Book</button>
       </div>

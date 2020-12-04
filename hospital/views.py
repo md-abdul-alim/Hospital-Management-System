@@ -140,7 +140,7 @@ def admin_doctor_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_view_doctor_view(request):
-    doctors=models.Doctor.objects.all().filter(status=True)
+    doctors=Doctor.objects.all().filter(status=True)
     return render(request,'hospital/admin_view_doctor.html',{'doctors':doctors})
 
 
@@ -148,8 +148,8 @@ def admin_view_doctor_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def delete_doctor_from_hospital_view(request,pk):
-    doctor=models.Doctor.objects.get(id=pk)
-    user=models.User.objects.get(id=doctor.user_id)
+    doctor=Doctor.objects.get(id=pk)
+    user=User.objects.get(id=doctor.user_id)
     user.delete()
     doctor.delete()
     return redirect('admin-view-doctor')
@@ -159,11 +159,11 @@ def delete_doctor_from_hospital_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def update_doctor_view(request,pk):
-    doctor=models.Doctor.objects.get(id=pk)
-    user=models.User.objects.get(id=doctor.user_id)
+    doctor=Doctor.objects.get(id=pk)
+    user=User.objects.get(id=doctor.user_id)
 
-    userForm=forms.DoctorUserForm(instance=user)
-    doctorForm=forms.DoctorForm(request.FILES,instance=doctor)
+    userForm=DoctorUserForm(instance=user)
+    doctorForm=DoctorForm(request.FILES,instance=doctor)
     mydict={'userForm':userForm,'doctorForm':doctorForm}
     if request.method=='POST':
         userForm=forms.DoctorUserForm(request.POST,instance=user)
@@ -184,12 +184,12 @@ def update_doctor_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_add_doctor_view(request):
-    userForm=forms.DoctorUserForm()
-    doctorForm=forms.DoctorForm()
+    userForm=CreateUserForm()
+    doctorForm=DoctorForm()
     mydict={'userForm':userForm,'doctorForm':doctorForm}
     if request.method=='POST':
-        userForm=forms.DoctorUserForm(request.POST)
-        doctorForm=forms.DoctorForm(request.POST, request.FILES)
+        userForm=CreateUserForm(request.POST)
+        doctorForm=DoctorForm(request.POST, request.FILES)
         if userForm.is_valid() and doctorForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
@@ -213,14 +213,14 @@ def admin_add_doctor_view(request):
 # @user_passes_test(is_admin)
 def admin_approve_doctor_view(request):
     #those whose approval are needed
-    doctors=models.Doctor.objects.all().filter(status=False)
+    doctors=Doctor.objects.all().filter(status=False)
     return render(request,'hospital/admin_approve_doctor.html',{'doctors':doctors})
 
 
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def approve_doctor_view(request,pk):
-    doctor=models.Doctor.objects.get(id=pk)
+    doctor=Doctor.objects.get(id=pk)
     doctor.status=True
     doctor.save()
     return redirect(reverse('admin-approve-doctor'))
@@ -229,8 +229,8 @@ def approve_doctor_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def reject_doctor_view(request,pk):
-    doctor=models.Doctor.objects.get(id=pk)
-    user=models.User.objects.get(id=doctor.user_id)
+    doctor=Doctor.objects.get(id=pk)
+    user=User.objects.get(id=doctor.user_id)
     user.delete()
     doctor.delete()
     return redirect('admin-approve-doctor')
@@ -240,7 +240,7 @@ def reject_doctor_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_view_doctor_specialisation_view(request):
-    doctors=models.Doctor.objects.all().filter(status=True)
+    doctors=Doctor.objects.all().filter(status=True)
     return render(request,'hospital/admin_view_doctor_specialisation.html',{'doctors':doctors})
 
 
@@ -255,7 +255,7 @@ def admin_patient_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_view_patient_view(request):
-    patients=models.Patient.objects.all().filter(status=True)
+    patients=Patient.objects.all().filter(status=True)
     return render(request,'hospital/admin_view_patient.html',{'patients':patients})
 
 
@@ -263,8 +263,8 @@ def admin_view_patient_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def delete_patient_from_hospital_view(request,pk):
-    patient=models.Patient.objects.get(id=pk)
-    user=models.User.objects.get(id=patient.user_id)
+    patient=Patient.objects.get(id=pk)
+    user=User.objects.get(id=patient.user_id)
     user.delete()
     patient.delete()
     return redirect('admin-view-patient')
@@ -274,15 +274,15 @@ def delete_patient_from_hospital_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def update_patient_view(request,pk):
-    patient=models.Patient.objects.get(id=pk)
-    user=models.User.objects.get(id=patient.user_id)
+    patient=Patient.objects.get(id=pk)
+    user=User.objects.get(id=patient.user_id)
 
-    userForm=forms.PatientUserForm(instance=user)
-    patientForm=forms.PatientForm(request.FILES,instance=patient)
+    userForm=CreateUserForm(instance=user)
+    patientForm=PatientForm(request.FILES,instance=patient)
     mydict={'userForm':userForm,'patientForm':patientForm}
     if request.method=='POST':
-        userForm=forms.PatientUserForm(request.POST,instance=user)
-        patientForm=forms.PatientForm(request.POST,request.FILES,instance=patient)
+        userForm=CreateUserForm(request.POST,instance=user)
+        patientForm=PatientForm(request.POST,request.FILES,instance=patient)
         if userForm.is_valid() and patientForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
@@ -301,12 +301,12 @@ def update_patient_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_add_patient_view(request):
-    userForm=forms.PatientUserForm()
-    patientForm=forms.PatientForm()
+    userForm=CreateUserForm()
+    patientForm=PatientForm()
     mydict={'userForm':userForm,'patientForm':patientForm}
     if request.method=='POST':
-        userForm=forms.PatientUserForm(request.POST)
-        patientForm=forms.PatientForm(request.POST,request.FILES)
+        userForm=CreateUserForm(request.POST)
+        patientForm=PatientForm(request.POST,request.FILES)
         if userForm.is_valid() and patientForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)
@@ -331,7 +331,7 @@ def admin_add_patient_view(request):
 # @user_passes_test(is_admin)
 def admin_approve_patient_view(request):
     #those whose approval are needed
-    patients=models.Patient.objects.all().filter(status=False)
+    patients=Patient.objects.all().filter(status=False)
     return render(request,'hospital/admin_approve_patient.html',{'patients':patients})
 
 
@@ -339,7 +339,7 @@ def admin_approve_patient_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def approve_patient_view(request,pk):
-    patient=models.Patient.objects.get(id=pk)
+    patient=Patient.objects.get(id=pk)
     patient.status=True
     patient.save()
     return redirect(reverse('admin-approve-patient'))
@@ -349,8 +349,8 @@ def approve_patient_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def reject_patient_view(request,pk):
-    patient=models.Patient.objects.get(id=pk)
-    user=models.User.objects.get(id=patient.user_id)
+    patient=Patient.objects.get(id=pk)
+    user=User.objects.get(id=patient.user_id)
     user.delete()
     patient.delete()
     return redirect('admin-approve-patient')
@@ -361,7 +361,7 @@ def reject_patient_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_discharge_patient_view(request):
-    patients=models.Patient.objects.all().filter(status=True)
+    patients=Patient.objects.all().filter(status=True)
     return render(request,'hospital/admin_discharge_patient.html',{'patients':patients})
 
 
@@ -369,9 +369,9 @@ def admin_discharge_patient_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def discharge_patient_view(request,pk):
-    patient=models.Patient.objects.get(id=pk)
+    patient=Patient.objects.get(id=pk)
     days=(date.today()-patient.admitDate) #2 days, 0:00:00
-    assignedDoctor=models.User.objects.all().filter(id=patient.assignedDoctorId)
+    assignedDoctor=User.objects.all().filter(id=patient.assignedDoctorId)
     d=days.days # only how many day that is 2
     patientDict={
         'patientId':pk,
@@ -394,7 +394,7 @@ def discharge_patient_view(request,pk):
         }
         patientDict.update(feeDict)
         #for updating to database patientDischargeDetails (pDD)
-        pDD=models.PatientDischargeDetails()
+        pDD=PatientDischargeDetails()
         pDD.patientId=pk
         pDD.patientName=patient.get_name
         pDD.assignedDoctorName=assignedDoctor[0].first_name
@@ -435,7 +435,7 @@ def render_to_pdf(template_src, context_dict):
 
 
 def download_pdf_view(request,pk):
-    dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=pk).order_by('-id')[:1]
+    dischargeDetails=PatientDischargeDetails.objects.all().filter(patientId=pk).order_by('-id')[:1]
     dict={
         'patientName':dischargeDetails[0].patientName,
         'assignedDoctorName':dischargeDetails[0].assignedDoctorName,
@@ -466,7 +466,7 @@ def admin_appointment_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_view_appointment_view(request):
-    appointments=models.Appointment.objects.all().filter(status=True)
+    appointments=Appointment.objects.all().filter(status=True)
     return render(request,'hospital/admin_view_appointment.html',{'appointments':appointments})
 
 
@@ -474,10 +474,10 @@ def admin_view_appointment_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def admin_add_appointment_view(request):
-    appointmentForm=forms.AppointmentForm()
+    appointmentForm=AppointmentForm()
     mydict={'appointmentForm':appointmentForm,}
     if request.method=='POST':
-        appointmentForm=forms.AppointmentForm(request.POST)
+        appointmentForm=AppointmentForm(request.POST)
         if appointmentForm.is_valid():
             appointment=appointmentForm.save(commit=False)
             appointment.doctorId=request.POST.get('doctorId')
@@ -495,7 +495,7 @@ def admin_add_appointment_view(request):
 # @user_passes_test(is_admin)
 def admin_approve_appointment_view(request):
     #those whose approval are needed
-    appointments=models.Appointment.objects.all().filter(status=False)
+    appointments=Appointment.objects.all().filter(status=False)
     return render(request,'hospital/admin_approve_appointment.html',{'appointments':appointments})
 
 
@@ -503,7 +503,7 @@ def admin_approve_appointment_view(request):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def approve_appointment_view(request,pk):
-    appointment=models.Appointment.objects.get(id=pk)
+    appointment=Appointment.objects.get(id=pk)
     appointment.status=True
     appointment.save()
     return redirect(reverse('admin-approve-appointment'))
@@ -513,7 +513,7 @@ def approve_appointment_view(request,pk):
 @login_required(login_url='login')
 # @user_passes_test(is_admin)
 def reject_appointment_view(request,pk):
-    appointment=models.Appointment.objects.get(id=pk)
+    appointment=Appointment.objects.get(id=pk)
     appointment.delete()
     return redirect('admin-approve-appointment')
 #---------------------------------------------------------------------------------
