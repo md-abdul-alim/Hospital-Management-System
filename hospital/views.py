@@ -39,9 +39,9 @@ def loginPage(request):
             else:
                 # this error will occur if user is not valid
                 messages.info(request, 'Username or password is incorrect')
-                return render(request, 'hospital/login.html')
+                return render(request, 'login.html')
         else:
-            return render(request, 'hospital/login.html')
+            return render(request, 'login.html')
 
 
 def homepage(request):
@@ -49,7 +49,7 @@ def homepage(request):
     if user.is_authenticated:
         return redirectlogin(request)
     else:
-        return render(request, 'hospital/index.html')
+        return render(request, 'index.html')
 
 def logoutPage(request):
     logout(request)
@@ -68,7 +68,7 @@ def hopital_registration(request):
                 group = Group.objects.get(name='ADMIN')
                 adminForm.groups.add(group)
                 return redirect('login')
-        return render(request,'hospital/registration/hospitalsignup.html',{'adminForm':adminForm})
+        return render(request,'registration/hospitalsignup.html',{'adminForm':adminForm})
 
 
 #-----------for checking user is doctor , patient or admin(by sumit)

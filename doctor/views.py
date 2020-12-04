@@ -50,9 +50,9 @@ def doctor_registration(request):
                     'userForm':userForm,
                     'doctorForm':doctorForm
                 }
-                return render(request,'hospital/registration/doctorsignup.html',context)
+                return render(request,'registration/doctorsignup.html',context)
         else:
-            return render(request,'hospital/registration/doctorsignup.html',context)
+            return render(request,'registration/doctorsignup.html',context)
 
 #---------------------------------------------------------------------------------
 #------------------------ DOCTOR RELATED VIEWS START ------------------------------

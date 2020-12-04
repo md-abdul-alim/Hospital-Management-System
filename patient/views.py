@@ -50,9 +50,9 @@ def patient_registration(request):
                     'userForm':userForm,
                     'patientForm':patientForm
                 }
-                return render(request,'hospital/registration/patientsignup.html',context)
+                return render(request,'registration/patientsignup.html',context)
         else:
-            return render(request,'hospital/registration/patientsignup.html',context)
+            return render(request,'registration/patientsignup.html',context)
 
 #---------------------------------------------------------------------------------
 #------------------------ PATIENT RELATED VIEWS START ------------------------------

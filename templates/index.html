@@ -1,4 +1,4 @@
-{% extends 'hospital/homebase.html' %}
+{% extends 'homebase.html' %}
 {% load static %}
 
 {% block content %}
@@ -117,7 +117,7 @@
 
   <p class="lead">
     <!-- <a class="btn btn-primary btn-lg" href="/patientclick" role="button">Take Appointment</a> -->
-    <a href="/patientclick" title="">Take Appointment</a>
+    <a href="{% url 'login' %}" title="">Take Appointment</a>
   </p>
   <br><br>
 </div>
