@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = (config('DEBUG') == 'True')
 #DEBUG = True
 
-ALLOWED_HOSTS =['hospitalmanagementsystem.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS =['django-hms.herokuapp.com','127.0.0.1']
 
 
 # Application definition
