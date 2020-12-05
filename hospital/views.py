@@ -242,7 +242,7 @@ def reject_doctor_view(request,pk):
 # @user_passes_test(is_admin)
 def admin_view_doctor_specialisation_view(request):
     doctors=Doctor.objects.all().filter(status=True)
-    return render(request,'hospital/admin_view_doctor_specialisation.html',{'doctors':doctors})
+    return render(request,'hospital/admin_view_doctor_specification.html',{'doctors':doctors})
 
 
 
