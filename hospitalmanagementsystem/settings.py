@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-#from decouple import config
+from decouple import config
 from pathlib import Path
-#import django_heroku
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zvo9^o7_9w6gqwlxj%(y!qfhhk6w%d18*1ht^)2@6#unb5^y)y'
-#SECRET_KEY = config('SECRET_KEY')
+#SECRET_KEY = 'zvo9^o7_9w6gqwlxj%(y!qfhhk6w%d18*1ht^)2@6#unb5^y)y'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = (config('DEBUG') == 'True')
-DEBUG = True
+DEBUG = (config('DEBUG') == 'True')
+#DEBUG = True
 
 ALLOWED_HOSTS =['hospitalmanagementsystem.herokuapp.com','127.0.0.1']
 
@@ -80,29 +80,29 @@ WSGI_APPLICATION = 'hospitalmanagementsystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hospitalmanagementsystem',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        "OPTIONS": {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
+#         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'hospitalmanagementsystem',
-#         'USER': 'postgres',
-#         'PASSWORD': 'adminmilon',
+#         'USER': 'root',
+#         'PASSWORD': '',
 #         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'PORT': '3306',
+#         "OPTIONS": {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hospitalmanagementsystem',
+        'USER': 'postgres',
+        'PASSWORD': 'adminmilon',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -150,4 +150,4 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/"media"
 
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
