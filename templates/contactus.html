@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en" dir="ltr">
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Abdul Alim || Milon</title>
-
-
-</head>
-
-<body>
-
-  {% include "navbar.html" %}
-  <br><br>
-
+{% extends 'homebase.html' %}
+{% block content %}
   <center>
     <h3 class='alert alert-success'>Send Us Your Valuable Feedback !</h3>
 
@@ -30,7 +15,4 @@
       </div>
     </form>
   </center>
-  {% include "footer.html" %}
-</body>
-
-</html>
+{% endblock %}
