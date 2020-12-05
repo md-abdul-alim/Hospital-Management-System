@@ -67,6 +67,7 @@ def hopital_registration(request):
                 adminForm=adminForm.save()
                 group = Group.objects.get(name='ADMIN')
                 adminForm.groups.add(group)
+                messages.success(request, 'Registration Successfull')
                 return redirect('login')
         return render(request,'registration/hospitalsignup.html',{'adminForm':adminForm})
 

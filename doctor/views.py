@@ -41,7 +41,7 @@ def doctor_registration(request):
                 doctorForm=doctorForm.save(commit=False)
                 doctorForm.user=userForm
                 doctorForm.save()
-
+                messages.success(request, 'Registration Successfull')
                 return redirect('login')
             else:
                 context={

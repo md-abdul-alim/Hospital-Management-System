@@ -42,6 +42,7 @@ def patient_registration(request):
                 patientForm.user=userForm
                 patientForm.assignedDoctorId=request.POST.get('assignedDoctorId')
                 patientForm.save()
+                messages.success(request, 'Registration Successfull')
                 return redirect('login')
             else:
                 context={
