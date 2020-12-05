@@ -80,29 +80,29 @@ WSGI_APPLICATION = 'hospitalmanagementsystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'hospitalmanagementsystem',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         "OPTIONS": {
-#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'hospitalmanagementsystem',
+#        'USER': 'root',
+#        'PASSWORD': '',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#        "OPTIONS": {
+#            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#        },
+#    }
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hospitalmanagementsystem',
-        'USER': 'postgres',
-        'PASSWORD': 'adminmilon',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'hospitalmanagementsystem',
+         'USER': 'postgres',
+         'PASSWORD': 'adminmilon',
+         'HOST': 'localhost',
+         'PORT': '5432',
+     }
+ }
 
 
 # Password validation
