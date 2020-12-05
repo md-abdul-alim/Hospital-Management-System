@@ -24,10 +24,8 @@ class CreateUserForm(UserCreationForm):
     def clean_username(self,*args, **kwargs):
         username = self.cleaned_data.get("username")
         if User.objects.filter(username=username).exists():
-            print("beforeusername", username)
             #raise forms.ValidationError("User Already Exists.Try another one.")
             raise forms.ValidationError('Username "%s" is already in use.' %username)
-            print("afterusername", username)
         else:
             return username
 
@@ -56,7 +54,6 @@ class CreateUserForm(UserCreationForm):
         first_name = self.cleaned_data.get("first_name")
         #return pass1
         if first_name == "" :
-            print("First Name check")
             raise forms.ValidationError('First name can not be empty.')
         return first_name
 
@@ -64,7 +61,6 @@ class CreateUserForm(UserCreationForm):
         last_name = self.cleaned_data.get("last_name")
         #return pass1
         if last_name == "" :
-            print("Last Name check")
             raise forms.ValidationError('Last name can not be empty.')
         return last_name
 
@@ -101,7 +97,6 @@ class PatientForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics
     def clean_mobile(self,*args, **kwargs):
         mobile = self.cleaned_data.get("mobile")
         if Patient.objects.filter(mobile=mobile).exists():
-            print("Phone number", mobile)
             #raise forms.ValidationError("User Already Exists.Try another one.")
             raise forms.ValidationError('This "%s" is already in use.' %mobile)
         else:

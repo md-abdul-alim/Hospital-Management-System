@@ -30,7 +30,6 @@ def doctor_registration(request):
             'doctorForm':doctorForm
         }
         if request.method=='POST':
-            print("post")
             userForm=CreateUserForm(request.POST or None)
             doctorForm=DoctorForm(request.POST,request.FILES)
             if userForm.is_valid() and doctorForm.is_valid():
@@ -42,10 +41,9 @@ def doctor_registration(request):
                 doctorForm=doctorForm.save(commit=False)
                 doctorForm.user=userForm
                 doctorForm.save()
-                print("valid")
+
                 return redirect('login')
             else:
-                print("Post not valid")
                 context={
                     'userForm':userForm,
                     'doctorForm':doctorForm

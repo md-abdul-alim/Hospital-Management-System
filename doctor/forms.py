@@ -35,7 +35,6 @@ class DoctorForm(forms.ModelForm):#https://docs.djangoproject.com/en/3.1/topics/
     def clean_mobile(self,*args, **kwargs):
         mobile = self.cleaned_data.get("mobile")
         if Doctor.objects.filter(mobile=mobile).exists():
-            print("Phone number", mobile)
             #raise forms.ValidationError("User Already Exists.Try another one.")
             raise forms.ValidationError('This "%s" is already in use.' %mobile)
         else:
