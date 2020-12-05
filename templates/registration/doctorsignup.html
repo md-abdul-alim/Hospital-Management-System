@@ -29,11 +29,6 @@
         <div class="form-content">
           <!-- start -->
           <div class="row" >
-              <div class="col-md-12">
-                {{userForm.username | as_crispy_field}}
-              </div>
-          </div>
-          <div class="row" >
               <div class="col-md-6">
                   {{userForm.first_name | as_crispy_field}}
               </div>
@@ -41,7 +36,11 @@
                   {{userForm.last_name | as_crispy_field}}
               </div>
           </div>
-
+          <div class="row" >
+              <div class="col-md-12">
+                {{userForm.username | as_crispy_field}}
+              </div>
+          </div>
           <div class="row" style="color: red">
               <div class="col-md-6">
                   {{userForm.password1 | as_crispy_field}}
